@@ -11,3 +11,13 @@ npm install
 ```
 bower install
 ```
+
+##### Deploy:
+```
+gulp
+```
+
+##### Run project:
+```
+gulp serve
+```
