@@ -39,7 +39,7 @@
             return Holiday.all({
                 key: TEST_API_KEY,
                 country: country_code,
-                year: newDate.getFullYear()
+                year: 2008
             });
         }
 
