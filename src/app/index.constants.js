@@ -6,6 +6,9 @@
     .module('calendar')
     .constant('malarkey', malarkey)
     .constant('moment', moment)
+      .constant('TEST_API_KEY', '7cc2a178-ec67-4d92-b75b-8db019b56e7b')
+      .constant('LIVE_API_KEY', 'c0f05e91-ce7d-4ad6-8f8a-9e331ba2a6ac')
+      .constant('API_PATH', 'https://holidayapi.com/v1/holidays')
       .constant('DAYS',['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'])
       .constant('MONTHS',[
           {

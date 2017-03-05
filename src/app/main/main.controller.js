@@ -16,8 +16,13 @@
       Calendar.getDays(2);
 
       function generateCalendar(e){
+          var newDate;
           e.preventDefault();
-          Calendar.generateCalendar(vm.calendar.start_date, vm.calendar.days_number, vm.calendar.country_code);
+
+          newDate = Calendar.addDays(vm.calendar.start_date, vm.calendar.days_number);
+
+          vm.holidays = Calendar.getHolidays(newDate, vm.calendar.country_code);
+
       }
 
   }
