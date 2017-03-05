@@ -13,7 +13,8 @@
             isLeapYear: isLeapYear,
             generateCalendar: generateCalendar,
             getHolidays: getHolidays,
-            getMonthsBetweenDates: getMonthsBetweenDates
+            getMonthsBetweenDates: getMonthsBetweenDates,
+            getDates: getDates
         };
 
         function addDays(start_date, days_number){
@@ -39,7 +40,55 @@
                 key: TEST_API_KEY,
                 country: country_code,
                 year: newDate.getFullYear()
-            }).$promise.then(successGetHolidays, errorGetHolidays);
+            });
+        }
+
+        function getDates(startDate, endDate) {
+            var currentDate = startDate,
+                dayNumber,
+                dates = [],
+                month={weeks:[]},
+                monthNumber,
+                months=[],
+                week={days:new Array(31)},
+                weeks=[],
+                addDays = function(days) {
+                    var date = new Date(this.valueOf());
+                    date.setDate(date.getDate() + days);
+                    return date;
+                };
+
+            monthNumber = currentDate.getMonth();
+            dayNumber = currentDate.getDay();
+
+            while (currentDate <= endDate) {
+                var newMonth = monthNumber!=currentDate.getMonth(),
+                    newWeek = (currentDate.getDay()==0 && dayNumber==6);
+                if(newMonth)
+                    month={weeks:[]};
+
+                if(newWeek){
+                    week={days:new Array(31)};
+                }
+                //week.days.push(currentDate.getDay());
+                week.days[currentDate.getDay()] = currentDate.getDate();
+                dates.push(currentDate);
+
+                monthNumber = currentDate.getMonth();
+                dayNumber = currentDate.getDay();
+
+                currentDate = addDays.call(currentDate, 1);
+
+                if((currentDate.getDay()==0 && dayNumber==6) || currentDate>endDate){
+                    month.weeks.push(week);
+                }
+
+                if(monthNumber!=currentDate.getMonth() || currentDate>endDate){
+                    month.name = MONTHS[monthNumber].month;
+                    months.push(month);
+                }
+            }
+            return months;
         }
 
         function getDays(date){
@@ -52,6 +101,7 @@
         }
 
         function successGetHolidays(response){
+            console.log(response.holidays);
             return response.holidays;
         }
 
